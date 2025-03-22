@@ -74,5 +74,11 @@
         "command": "docker build -f apps/my-project/Dockerfile . -t my-project"
       }
     }
+  },
+  "dependencies": {
+    "cors": "^2.8.5"
+  },
+  "devDependencies": {
+    "@types/cors": "^2.8.17"
   }
 }

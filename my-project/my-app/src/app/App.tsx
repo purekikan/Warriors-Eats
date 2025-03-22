@@ -1,5 +1,6 @@
 /* eslint-disable jsx-a11y/accessible-emoji */
-import React, { useRef, useState } from 'react';
+import axios from 'axios';
+import React, { useRef, useState, useEffect } from 'react';
 import {
   SafeAreaView,
   StyleSheet,
@@ -15,6 +16,16 @@ import Svg, { G, Path } from 'react-native-svg';
 export const App = () => {
   const [whatsNextYCoord, setWhatsNextYCoord] = useState<number>(0);
   const scrollViewRef = useRef<null | ScrollView>(null);
+  useEffect(() => {
+    axios.get('http://localhost:3000/')
+      .then(response => {
+        console.log(response.data);
+      })
+      .catch(error => {
+        console.error(error);
+      });
+  }, []);
+
 
   return (
     <>
@@ -38,8 +49,9 @@ export const App = () => {
               testID="heading"
               role="heading"
             >
-              Welcome MyApp 👋
+              Welcome to MyApp 👋
             </Text>
+            <Text>Check the console for our backend response!</Text>
           </View>
           <View style={styles.section}>
             <View style={styles.hero}>
