@@ -51,7 +51,7 @@ export const App = () => {
             >
               Welcome to MyApp 👋
             </Text>
-            <Text>Check the console for our backend response!</Text>
+            <Text>Check the console for our backend response! Go there by pressing F12</Text>
           </View>
           <View style={styles.section}>
             <View style={styles.hero}>
