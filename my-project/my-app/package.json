@@ -22,7 +22,9 @@
     "react": "*",
     "@testing-library/react-native": "*",
     "react-native": "*",
-    "react-native-svg": "*"
+    "react-native-svg": "*",
+    "axios": "*",
+    "expo-router": "*"
   },
   "devDependencies": {}
 }
