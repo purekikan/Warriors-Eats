@@ -13,6 +13,7 @@ import {
 } from 'react-native';
 import { Link } from 'expo-router';
 import Svg, { G, Path } from 'react-native-svg';
+import "../../global.css"
 
 export const App = () => {
   const [whatsNextYCoord, setWhatsNextYCoord] = useState<number>(0);
@@ -52,10 +53,13 @@ export const App = () => {
             >
               Welcome to MyApp 👋
             </Text>
-            <Text>Check the console for our backend response! Go there by pressing F12</Text>
+            <Text className="">Check the console for our backend response! Go there by pressing F12</Text>
             <Link href="/about">
-              <Text style={styles.textMd}>Go to About</Text>
+              <Text className='text-3xl mt-4'>Go to About</Text>
             </Link>
+          </View>
+          <View className="flex-1 justify-center items-center bg-blue-500">
+            <Text className="text-white text-lg">Hello, NativeWind!</Text>
           </View>
           <View style={styles.section}>
             <View style={styles.hero}>
