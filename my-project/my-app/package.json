@@ -2,6 +2,7 @@
   "name": "@my-project/my-app",
   "version": "0.0.1",
   "private": true,
+  "main": "expo-router/entry",
   "dependencies": {
     "expo": "*",
     "@nx/devkit": "*",
@@ -26,5 +27,9 @@
     "axios": "*",
     "expo-router": "*"
   },
-  "devDependencies": {}
+  "devDependencies": {},
+  "scripts": {
+    "android": "expo run:android",
+    "ios": "expo run:ios"
+  }
 }
