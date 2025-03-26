@@ -11,6 +11,7 @@ import {
   TouchableOpacity,
   Linking,
 } from 'react-native';
+import { Link } from 'expo-router';
 import Svg, { G, Path } from 'react-native-svg';
 
 export const App = () => {
@@ -52,6 +53,9 @@ export const App = () => {
               Welcome to MyApp 👋
             </Text>
             <Text>Check the console for our backend response! Go there by pressing F12</Text>
+            <Link href="/about">
+              <Text style={styles.textMd}>Go to About</Text>
+            </Link>
           </View>
           <View style={styles.section}>
             <View style={styles.hero}>
