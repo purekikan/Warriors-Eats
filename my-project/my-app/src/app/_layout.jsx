@@ -1,6 +1,12 @@
 import App from './App';
-export default function BigApp() {
+import { Stack } from 'expo-router';
+
+export const rootLayout = () => {
   return (
-    <App />
+    <Stack>
+        <Stack.Screen name="App" options={{ headerShown: false }} />
+    </Stack>
   );
 }
+
+export default rootLayout;
