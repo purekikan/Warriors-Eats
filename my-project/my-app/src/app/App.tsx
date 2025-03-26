@@ -17,19 +17,19 @@ export const App = () => {
   const [whatsNextYCoord, setWhatsNextYCoord] = useState<number>(0);
   const scrollViewRef = useRef<null | ScrollView>(null);
   useEffect(() => {
-    axios.get('http://localhost:3000/')
+    axios.get('http://localhost:3300/')
       .then(response => {
         console.log(response.data);
       })
       .catch(error => {
         console.error(error);
       });
-  }, []);
+  }, []); // does not work on mobile
 
 
   return (
     <>
-      <StatusBar barStyle="dark-content" />
+      <StatusBar barStyle="light-content" />
       <SafeAreaView
         style={{
           flex: 1,
