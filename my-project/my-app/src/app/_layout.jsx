@@ -5,10 +5,10 @@ import { Slot, Stack } from 'expo-router'
 const rootlayout = () => {
   return (
     <Stack>
-        <Stack.Screen name="tabs" options={{ headerShown: false }} />
-        <Stack.Screen name="index" options={{ headerShown: false }} />
-        <Stack.Screen name="App" options={{ headerShown: false }} />
-      </Stack>
+      <Stack.Screen name="tabs" options={{ headerShown: false }} />
+      <Stack.Screen name="index" options={{ headerShown: false }} />
+      <Stack.Screen name="App" options={{ headerShown: false }} />
+    </Stack>
   )
 }
 
