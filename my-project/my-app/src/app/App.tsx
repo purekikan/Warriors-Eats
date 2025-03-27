@@ -1,6 +1,7 @@
 import * as React from 'react';
 import { MD3LightTheme as DefaultTheme, PaperProvider } from 'react-native-paper';
 import { createMaterialBottomTabNavigator } from 'react-native-paper/react-navigation';
+import { View } from 'react-native';
 
 // const Tab = createMaterialBottomTabNavigator();
 
@@ -36,12 +37,17 @@ export default function Main() {
         restaurants: RestaurantsRoute,
     });
     return (
-        <PaperProvider theme={theme}>
-            <BottomNavigation
-                navigationState={{ index, routes }}
-                onIndexChange={setIndex}
-                renderScene={renderScene}
-                />
-        </PaperProvider>
+        <>
+            <PaperProvider theme={theme}>
+                <View className="justify-center items-center bg-blue-500" onTouchEnd={() => setIndex(1)}>
+                    <Text className="text-white text-lg">WARP TO HOME!</Text>
+                </View>
+                <BottomNavigation
+                    navigationState={{ index, routes }}
+                    onIndexChange={setIndex}
+                    renderScene={renderScene}
+                    />
+            </PaperProvider>
+        </>
     );
 }
