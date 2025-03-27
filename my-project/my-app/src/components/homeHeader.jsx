@@ -20,6 +20,8 @@ const HomeHeader = () => {
             placeholder="Search"
             onChangeText={setSearchQuery}
             value={searchQuery}
+            traileringIcon="filter"
+            className="rounded-full"
           />
         </View>
       </>
