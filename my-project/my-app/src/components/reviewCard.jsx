@@ -11,7 +11,7 @@ const RightContent = (props) => (
 )
 
 const reviewCard = ({ title }) => (
-    <Card className='mb-4 rounded-[30]'>
+    <Card className='mb-[15] rounded-full'>
         <Card.Title 
             title={title} 
             subtitle="Card Subtitle" 
