@@ -4,14 +4,15 @@ import { Avatar, Button, Card, Text } from 'react-native-paper';
 
 const LeftContent = props => <Avatar.Icon {...props} icon="folder" />
 
-const reviewCard = () => (
-    <Card>
-        <Card.Title title="Card Title" subtitle="Card Subtitle" left={LeftContent} />
-        <Card.Content>
-            <Text variant="titleLarge">Card title</Text>
-            <Text variant="bodyMedium">Card content</Text>
-        </Card.Content>
+const reviewCard = ({ title }) => (
+    <Card className='mb-4 bg-[#FFF1C2]'>
+        <Card.Title title={title} subtitle="Card Subtitle" left={LeftContent} />
         <Card.Cover source={{ uri: 'https://picsum.photos/700' }} />
+        <Card.Content>
+            <Text variant="titleLarge">Reviews Title</Text>
+            <Text variant="bodyLarge">Reviews Scores</Text>
+            <Text variant="bodyMedium">Reviews Descriptions</Text>
+        </Card.Content>
         <Card.Actions>
             <Button>Cancel</Button>
             <Button>Ok</Button>
