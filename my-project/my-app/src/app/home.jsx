@@ -7,17 +7,25 @@ import { ReviewCard, HomeHeader } from '../components';
 const home = () => {
   const DATA = [
     {
-      id: 'bd7acbea-c1b1-46c2-aed5-3ad53abb28ba',
+      id: '1',
       title: 'First Item',
     },
     {
-      id: '3ac68afc-c605-48d3-a4f8-fbd91aa97f63',
+      id: '2',
       title: 'Second Item',
     },
     {
-      id: '58694a0f-3da1-471f-bd96-145571e29d72',
+      id: '3',
       title: 'Third Item',
     },
+    {
+      id: '4',
+      title: 'Fourth Item',
+    },
+    {
+      id: '5',
+      title: 'Fifth Item', 
+    }
   ];
   
   return (
@@ -25,7 +33,7 @@ const home = () => {
       <SafeAreaView className='flex-1 bg-[#FFF1C2]'>
         <HomeHeader />
         {/* all posts (cards) */}
-        <FlatList className='pt-4'
+        <FlatList className='pt-4 px-5'
           data={DATA}
           renderItem={({item}) => <ReviewCard title={item.title} />}
           keyExtractor={item => item.id} 
