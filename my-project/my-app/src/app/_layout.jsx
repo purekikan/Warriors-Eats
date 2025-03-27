@@ -1,12 +1,15 @@
-import App from './App';
-import { Stack } from 'expo-router';
+import { View, Text } from 'react-native'
+import React from 'react'
+import { Slot, Stack } from 'expo-router'
 
-export const rootLayout = () => {
+const rootlayout = () => {
   return (
     <Stack>
+        <Stack.Screen name="tabs" options={{ headerShown: false }} />
+        <Stack.Screen name="index" options={{ headerShown: false }} />
         <Stack.Screen name="App" options={{ headerShown: false }} />
-    </Stack>
-  );
+      </Stack>
+  )
 }
 
-export default rootLayout;
+export default rootlayout
