@@ -20,15 +20,15 @@ import "../../global.css"
 export const app = () => {
   const [whatsNextYCoord, setWhatsNextYCoord] = useState<number>(0);
   const scrollViewRef = useRef<null | ScrollView>(null);
-  useEffect(() => {
-    axios.get('http://localhost:3300/')
-      .then(response => {
-        console.log(response.data);
-      })
-      .catch(error => {
-        console.error(error);
-      });
-  }, []); // does not work on mobile
+  // useEffect(() => {
+  //   axios.get('http://localhost:3300/')
+  //     .then(response => {
+  //       console.log(response.data);
+  //     })
+  //     .catch(error => {
+  //       console.error(error);
+  //     });
+  // }, []); // does not work on mobile
 
 
   return (
