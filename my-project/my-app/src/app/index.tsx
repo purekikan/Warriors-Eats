@@ -1,3 +1,5 @@
+/* this is the default app template from nx monorepo */
+
 /* eslint-disable jsx-a11y/accessible-emoji */
 import axios from 'axios';
 import React, { useRef, useState, useEffect } from 'react';
