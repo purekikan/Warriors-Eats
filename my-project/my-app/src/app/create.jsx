@@ -1,9 +1,10 @@
-import { View, Text, ScrollView, FlatList, StatusBar } from 'react-native';
+import { View, ScrollView, FlatList, Image, StatusBar } from 'react-native';
 import * as React from 'react';
-import { Searchbar, PaperProvider, TextInput } from 'react-native-paper';
+import { Searchbar, PaperProvider, TextInput, Text, Button } from 'react-native-paper';
 import { SafeAreaView, SafeAreaProvider } from 'react-native-safe-area-context';
 import { Dropdown } from 'react-native-element-dropdown';
 import Slider from '@react-native-community/slider';
+import * as ImagePicker from 'expo-image-picker'
 import { ReviewCard } from '../components';
 const CreateHeader = () => {
   return (
@@ -41,6 +42,32 @@ export const Create = () => {
   const [reviewDescription, setReviewDescription] = React.useState("");
   const [location, setLocation] = React.useState("");
   const [isFocus, setIsFocus] = React.useState(false);
+  const [camPermission, requestCamPermission] = ImagePicker.useCameraPermissions();
+  const [mediaLibPermission, requestMediaLibPermission] = ImagePicker.useMediaLibraryPermissions();
+  const [image, setImage] = React.useState(null);
+
+  const requestPermissions = async () => {
+    requestCamPermission();
+    requestMediaLibPermission();
+  }
+
+  const openImagePicker = async () => {
+    if (camPermission.status !== 'granted' || mediaLibPermission.status !== 'granted') {
+      requestPermissions();
+    }
+    let result = await ImagePicker.launchImageLibraryAsync({
+      mediaTypes: 'images',
+      // allowsEditing: true,
+      aspect: [4, 3],
+      // quality: 1,
+    });
+
+    console.log(result);
+
+    if (!(result.cancelled)) {
+      setImage(result.assets[0].uri);
+    }
+  }
 
   return (
     <SafeAreaProvider>
@@ -93,7 +120,11 @@ export const Create = () => {
             }}
           />
           {/* Upload Photo Button + File Picker */}
-          
+          <Button className='' icon="camera" mode="contained" onPress={openImagePicker}>
+            Upload the Photo of Your Decilious Dish!
+          </Button>
+          {image && <Image source={{ uri: image }} style={{ width: 200, height: 200 }} />}
+
           {/* npm install @react-native-community/slider --save for slider feilds
            Ratings 
            - Taste
@@ -155,9 +186,16 @@ export const Create = () => {
             value={reviewDescription}
             onChangeText={reviewDescription => setReviewDescription(reviewDescription)}
             multiline={true}
-            minHeight={100} // make it vertically bigger
+            className='min-h-[150]' // make it vertically bigger
           />
-
+          <View className='my-5'>
+            <Button
+            className=''
+            icon="send"
+            mode="contained"
+            onPress={() => console.log('Pressed')}>
+            Submit</Button>
+          </View>
         </ScrollView>
       </SafeAreaView>
     </SafeAreaProvider>
