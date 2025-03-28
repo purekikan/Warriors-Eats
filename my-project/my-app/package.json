@@ -32,7 +32,8 @@
     "react-native-svg-transformer": "*",
     "tailwindcss": "^3.4.17",
     "tsconfig-paths": "*",
-    "tslib": "*"
+    "tslib": "*",
+    "expo-image-picker": "~16.0.6"
   },
   "scripts": {
     "android": "expo run:android",
