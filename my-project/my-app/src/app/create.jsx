@@ -62,10 +62,12 @@ export const Create = () => {
       // quality: 1,
     });
 
-    console.log(result);
+    // console.log(result);
 
-    if (!(result.cancelled)) {
+    if (!(result.canceled)) {
       setImage(result.assets[0].uri);
+    } else {
+      setImage(null);
     }
   }
 
