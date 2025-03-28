@@ -2,6 +2,8 @@ import { View, Text, ScrollView, FlatList, StatusBar } from 'react-native';
 import * as React from 'react';
 import { Searchbar, PaperProvider, TextInput } from 'react-native-paper';
 import { SafeAreaView, SafeAreaProvider } from 'react-native-safe-area-context';
+import { Dropdown } from 'react-native-element-dropdown';
+import Slider from '@react-native-community/slider';
 import { ReviewCard } from '../components';
 const CreateHeader = () => {
   return (
@@ -21,10 +23,25 @@ const CreateHeader = () => {
   )
 }
 
+const data = [
+  { label: 'Item 1', value: '1' },
+  { label: 'Item 2', value: '2' },
+  { label: 'Item 3', value: '3' },
+  { label: 'Item 4', value: '4' },
+  { label: 'Item 5', value: '5' },
+  { label: 'Item 6', value: '6' },
+  { label: 'Item 7', value: '7' },
+  { label: 'Item 8', value: '8' },
+];
+
+
 export const Create = () => {
   const [foodName, setFoodName] = React.useState("");
   const [reviewTitle, setReviewTitle] = React.useState("");
   const [reviewDescription, setReviewDescription] = React.useState("");
+  const [location, setLocation] = React.useState("");
+  const [isFocus, setIsFocus] = React.useState(false);
+
   return (
     <SafeAreaProvider>
       <SafeAreaView className='flex-1 bg-[#FFF1C2]'>
@@ -39,12 +56,93 @@ export const Create = () => {
             onChangeText={foodName => setFoodName(foodName)}
           />
           {/* Dropdown Menu _> npm install react-native-paper-dropdown --save */}
+          <Text className='text-gray-600 mt-1 mb-2'>
+            Dropdown label
+          </Text>
+          <Dropdown
+            style={{
+              height: 50,
+              backgroundColor: 'white',
+              borderStyle: 'solid',
+              borderWidth: 1,
+              padding: 12,
+              shadowColor: '#000',
+              shadowOffset: {
+                width: 0,
+                height: 1,
+              },
+              shadowOpacity: 0.2,
+              shadowRadius: 1.41,
+              elevation: 2,
+              marginBottom: 4,
+            }}
+
+            data={data}
+            search
+            maxHeight={300}
+            labelField="label"
+            valueField="Location"
+            placeholder={!location ? 'Select item' : location}
+            searchPlaceholder="Search..."
+            value={location}
+            onFocus={() => setIsFocus(true)}
+            onBlur={() => setIsFocus(false)}
+            onChange={(data) => {
+              setLocation(data.label);
+              setIsFocus(false);
+            }}
+          />
           {/* Upload Photo Button + File Picker */}
+          
           {/* npm install @react-native-community/slider --save for slider feilds
            Ratings 
            - Taste
            - Presentation
            - Experience */}
+          <View className='flex items-center justify-between'>
+            <Text className='text-gray-600 mt-1 mb-2'>
+              Ratings
+            </Text>
+            <View className=''>
+              <Text className='text-gray-600'>
+                Taste
+              </Text>
+              <Slider
+                style={{ width: 200, height: 40 }}
+                minimumValue={0}
+                maximumValue={5}
+                step={1}
+                minimumTrackTintColor="#FFD700"
+                maximumTrackTintColor="#000000"
+              />
+            </View>
+            <View className=''>
+              <Text className='text-gray-600'>
+                Presentation
+              </Text>
+              <Slider
+                style={{ width: 200, height: 40 }}
+                minimumValue={0}
+                maximumValue={5}
+                step={1}
+                minimumTrackTintColor="#FFD700"
+                maximumTrackTintColor="#000000"
+              />
+            </View>
+            <View className=''>
+              <Text className='text-gray-600'>
+                Experience
+              </Text>
+              <Slider
+                style={{ width: 200, height: 40 }}
+                minimumValue={0}
+                maximumValue={5}
+                step={1}
+                minimumTrackTintColor="#FFD700"
+                maximumTrackTintColor="#000000"
+              />
+            </View>
+          </View>
            <TextInput
             label="Review Title"
             mode="outlined"
