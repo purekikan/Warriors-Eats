@@ -1,6 +1,7 @@
 import * as React from 'react'
 import { View, StatusBar } from 'react-native'
 import { Searchbar, Text } from 'react-native-paper'
+import { SearchFilter } from './searchFilter'
 const HomeHeader = () => {
     const [searchQuery, setSearchQuery] = React.useState('');
     return (
@@ -16,13 +17,7 @@ const HomeHeader = () => {
             </View>
           </View>
   
-          <Searchbar
-            placeholder="Search"
-            onChangeText={setSearchQuery}
-            value={searchQuery}
-            traileringIcon="filter"
-            className="rounded-full"
-          />
+          <SearchFilter />
         </View>
       </>
     )
