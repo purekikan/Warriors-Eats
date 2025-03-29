@@ -1,4 +1,5 @@
 import * as React from 'react';
+import axios from 'axios';
 import { MD3LightTheme as DefaultTheme, PaperProvider } from 'react-native-paper';
 import { createMaterialBottomTabNavigator } from 'react-native-paper/react-navigation';
 import { View } from 'react-native';
@@ -35,6 +36,15 @@ export default function Main() {
         create: CreateRoute,
         restaurants: RestaurantsRoute,
     });
+    React.useEffect(() => {
+        axios.get('http://localhost:3000/eateries')
+          .then(response => {
+            console.log(response.data);
+          })
+          .catch(error => {
+            console.error(error);
+          });
+      }, []);
     return (
         <>
           <PaperProvider theme={theme}>
