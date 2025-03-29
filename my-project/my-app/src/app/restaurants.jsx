@@ -1,6 +1,6 @@
-import React, { useState } from 'react';
-import { View, Text, TouchableOpacity, StyleSheet } from 'react-native';
+import { View, ScrollView, Text, TouchableOpacity, StyleSheet, StatusBar } from 'react-native';
 import { Ionicons } from '@expo/vector-icons';
+import { useState } from 'react';
 
 const RestaurantList = () => {
   const [expandedId, setExpandedId] = useState(null);
@@ -37,65 +37,50 @@ const RestaurantList = () => {
     setExpandedId(expandedId === id ? null : id);
   };
 
-  return (
-    <View style={styles.container}>
-      <Text style={styles.header}>Restaurant List</Text>
-      
-      {restaurants.map((restaurant) => (
-        <View key={restaurant.id} style={styles.itemContainer}>
-          <TouchableOpacity 
-            onPress={() => toggleItem(restaurant.id)}
-            style={styles.itemHeader}
-          >
-            <Text style={styles.name}>{restaurant.name}</Text>
-            <Ionicons 
-              name={expandedId === restaurant.id ? "chevron-up" : "chevron-down"} 
-              size={20} 
-              color="#666" 
-            />
-          </TouchableOpacity>
-          
-          {expandedId === restaurant.id && (
-            <Text style={styles.description}>{restaurant.description}</Text>
-          )}
+  const RestaurantListHeader = () => {
+    return (
+      <>
+        <StatusBar backgroundColor="#F8D49B" barStyle="dark-content" />
+        {/* header */}
+        <View className="flex px-4 py-6 mb-4 bg-[#F8D49B]">
+          <View className="flex justify-between items-start flex-row">
+            <View>
+              <Text className="text-2xl font-psemibold text-black">
+                Restaurant List
+              </Text>
+            </View>
+          </View>
         </View>
-      ))}
+      </>
+    )
+  }
+
+  return (
+    <View className="flex-1 bg-[#FFF1C2]">
+      <RestaurantListHeader />
+      <ScrollView className="px-5">
+        {restaurants.map((restaurant) => (
+          <View key={restaurant.id} className="mb-4 bg-white rounded-lg overflow-hidden shadow">
+            <TouchableOpacity 
+              onPress={() => toggleItem(restaurant.id)}
+              className="p-4 flex-row justify-between items-center"
+            >
+              <Text className="text-lg font-semibold flex-1">{restaurant.name}</Text>
+              <Ionicons 
+                name={expandedId === restaurant.id ? "chevron-up" : "chevron-down"} 
+                size={20} 
+                color="#666" 
+              />
+            </TouchableOpacity>
+            
+            {expandedId === restaurant.id && (
+              <Text className="p-4 pt-0 text-gray-600">{restaurant.description}</Text>
+            )}
+          </View>
+        ))}
+      </ScrollView>
     </View>
   );
 };
 
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    padding: 16,
-    backgroundColor: '#fff',
-  },
-  header: {
-    fontSize: 24,
-    fontWeight: 'bold',
-    marginBottom: 16,
-  },
-  itemContainer: {
-    marginBottom: 8,
-    backgroundColor: '#f5f5f5',
-    borderRadius: 8,
-    overflow: 'hidden',
-  },
-  itemHeader: {
-    padding: 16,
-    flexDirection: 'row',
-    justifyContent: 'space-between',
-    alignItems: 'center',
-  },
-  name: {
-    fontSize: 18,
-    fontWeight: '600',
-    flex: 1,
-  },
-  description: {
-    padding: 16,
-    paddingTop: 0,
-    color: '#666',
-  },
-});
 export default RestaurantList;
