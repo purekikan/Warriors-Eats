@@ -24,7 +24,7 @@ const CreateHeader = () => {
   )
 }
 
-const data = [
+const locationData = [
   { label: 'Item 1', value: '1' },
   { label: 'Item 2', value: '2' },
   { label: 'Item 3', value: '3' },
@@ -41,10 +41,10 @@ export const Create = () => {
   const [reviewTitle, setReviewTitle] = React.useState("");
   const [reviewDescription, setReviewDescription] = React.useState("");
   const [location, setLocation] = React.useState("");
-  const [isFocus, setIsFocus] = React.useState(false);
+  const [image, setImage] = React.useState(null);
+  const [reviewScore, setReviewScore] = React.useState({taste : 0, presentation: 0, experience: 0});
   const [camPermission, requestCamPermission] = ImagePicker.useCameraPermissions();
   const [mediaLibPermission, requestMediaLibPermission] = ImagePicker.useMediaLibraryPermissions();
-  const [image, setImage] = React.useState(null);
 
 
   const openImagePicker = async ({ src }) => {
@@ -73,11 +73,22 @@ export const Create = () => {
     }
   }
 
+  const handleSubmit = () => {
+    console.log('Review Posted!');
+    // save the review to the database
+    setFoodName("");  
+    setReviewTitle("");
+    setReviewDescription("");
+    setLocation("");
+    setImage(null);
+    setReviewScore({taste : 0, presentation: 0, experience: 0});
+    // go to Home page
+  }
+  
   return (
     <SafeAreaProvider>
       <SafeAreaView className='flex-1 bg-[#FFF1C2]'>
         <CreateHeader />
-        {/* Form fields */}
         <ScrollView className='px-5'>
           <Text>create</Text>
           <TextInput
@@ -88,9 +99,20 @@ export const Create = () => {
           />
           {/* Dropdown Menu _> npm install react-native-paper-dropdown --save */}
           <Text className='text-gray-600 mt-1 mb-2'>
-            Dropdown label
+            Locations
           </Text>
           <Dropdown
+            data={locationData}
+            search
+            maxHeight={300}
+            labelField="label"
+            valueField="Location"
+            placeholder={!location ? 'Select Restaurant Location' : location}
+            searchPlaceholder="Search..."
+            value={location}
+            onChange={(locationData) => {
+              setLocation(locationData.label);
+            }}
             style={{
               height: 50,
               backgroundColor: 'white',
@@ -107,24 +129,9 @@ export const Create = () => {
               elevation: 2,
               marginBottom: 4,
             }}
-
-            data={data}
-            search
-            maxHeight={300}
-            labelField="label"
-            valueField="Location"
-            placeholder={!location ? 'Select item' : location}
-            searchPlaceholder="Search..."
-            value={location}
-            onFocus={() => setIsFocus(true)}
-            onBlur={() => setIsFocus(false)}
-            onChange={(data) => {
-              setLocation(data.label);
-              setIsFocus(false);
-            }}
           />
           {/* Upload Photo Button + File Picker */}
-          <View className='flex items-center justify-center'>
+          <View className='flex items-center justify-center mt-2'>
             <Text className='text-gray-600 mt-1 mb-2'>
                 Upload / Take a Photo of Your Delicious Dish!
             </Text>
@@ -154,15 +161,14 @@ export const Create = () => {
               Ratings
             </Text>
           <View className='flex flex-row m-w-full items-center justify-between'>
-            {/* <Text className='text-gray-600 mt-1 mb-2'>
-              Ratings
-            </Text> */}
             <View className='w-1/3'>
               <Text className='text-gray-600'>
-                Taste
+                Taste : {reviewScore.taste}
               </Text>
               <Slider
                 // style={{ width: 200, height: 40 }}
+                value={reviewScore.taste}
+                onSlidingComplete={(value) => setReviewScore({ ...reviewScore, taste: value })}
                 minimumValue={0}
                 maximumValue={5}
                 step={1}
@@ -172,10 +178,12 @@ export const Create = () => {
             </View>
             <View className='w-1/3'>
               <Text className='text-gray-600'>
-                Presentation
+                Presentation : {reviewScore.presentation}
               </Text>
               <Slider
                 // style={{ width: 200, height: 40 }}
+                value={reviewScore.presentation}
+                onSlidingComplete={(value) => setReviewScore({ ...reviewScore, presentation: value })}
                 minimumValue={0}
                 maximumValue={5}
                 step={1}
@@ -185,10 +193,12 @@ export const Create = () => {
             </View>
             <View className='w-1/3'>
               <Text className='text-gray-600'>
-                Experience
+                Experience : {reviewScore.experience}
               </Text>
               <Slider
                 // style={{ width: 200, height: 40 }}
+                value={reviewScore.experience}
+                onSlidingComplete={(value) => setReviewScore({ ...reviewScore, experience: value })}
                 minimumValue={0}
                 maximumValue={5}
                 step={1}
@@ -197,7 +207,8 @@ export const Create = () => {
               />
             </View>
           </View>
-           <TextInput
+
+          <TextInput
             label="Review Title"
             mode="outlined"
             value={reviewTitle}
@@ -213,11 +224,13 @@ export const Create = () => {
           />
           <View className='my-5'>
             <Button
-            className=''
-            icon="send"
-            mode="contained"
-            onPress={() => console.log('Pressed')}>
-            Submit</Button>
+              className=''
+              icon="send"
+              mode="contained"
+              onPress={() => handleSubmit()}
+            >
+              Post Review
+            </Button>
           </View>
         </ScrollView>
       </SafeAreaView>
