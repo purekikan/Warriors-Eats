@@ -46,21 +46,23 @@ export const Create = () => {
   const [mediaLibPermission, requestMediaLibPermission] = ImagePicker.useMediaLibraryPermissions();
   const [image, setImage] = React.useState(null);
 
-  const requestPermissions = async () => {
-    requestCamPermission();
-    requestMediaLibPermission();
-  }
 
-  const openImagePicker = async () => {
-    if (camPermission.status !== 'granted' || mediaLibPermission.status !== 'granted') {
-      requestPermissions();
+  const openImagePicker = async ({ src }) => {
+    if (src == 'file' && mediaLibPermission.status !== 'granted') {
+      requestMediaLibPermission();
+    } else if (src == "camera" && camPermission.status !== 'granted') {
+      requestCamPermission();
     }
-    let result = await ImagePicker.launchImageLibraryAsync({
+    const options = {
       mediaTypes: 'images',
       // allowsEditing: true,
       aspect: [4, 3],
       // quality: 1,
-    });
+    }
+    // console.log(src);
+    let result; 
+    src == "file" ? result = await ImagePicker.launchImageLibraryAsync(options) 
+    : result = await ImagePicker.launchCameraAsync(options);
 
     // console.log(result);
 
@@ -122,26 +124,45 @@ export const Create = () => {
             }}
           />
           {/* Upload Photo Button + File Picker */}
-          <Button className='' icon="camera" mode="contained" onPress={openImagePicker}>
-            Upload the Photo of Your Decilious Dish!
-          </Button>
-          {image && <Image source={{ uri: image }} style={{ width: 200, height: 200 }} />}
+          <View className='flex items-center justify-center'>
+            <Text className='text-gray-600 mt-1 mb-2'>
+                Upload / Take a Photo of Your Delicious Dish!
+            </Text>
+            <Button className='my-2' icon="camera" mode="contained" 
+              onPress={() => openImagePicker({ src : "camera" })}>
+              Take Photo
+            </Button>
+            <Button className='my-2' icon="file-image-plus" mode="contained" 
+              onPress={() => openImagePicker({ src : "file" })}>
+              Upload Photo
+            </Button>
+            {image ? 
+              <Image source={{ uri: image }} style={{ width: 200, height: 200 }} />
+                  : 
+              <Text className='text-gray-600 mt-1 mb-2'>
+                No image selected
+              </Text>
+            }
+          </View>
 
           {/* npm install @react-native-community/slider --save for slider feilds
            Ratings 
            - Taste
            - Presentation
            - Experience */}
-          <View className='flex items-center justify-between'>
-            <Text className='text-gray-600 mt-1 mb-2'>
+           <Text className='text-gray-600 mt-1 mb-2'>
               Ratings
             </Text>
-            <View className=''>
+          <View className='flex flex-row m-w-full items-center justify-between'>
+            {/* <Text className='text-gray-600 mt-1 mb-2'>
+              Ratings
+            </Text> */}
+            <View className='w-1/3'>
               <Text className='text-gray-600'>
                 Taste
               </Text>
               <Slider
-                style={{ width: 200, height: 40 }}
+                // style={{ width: 200, height: 40 }}
                 minimumValue={0}
                 maximumValue={5}
                 step={1}
@@ -149,12 +170,12 @@ export const Create = () => {
                 maximumTrackTintColor="#000000"
               />
             </View>
-            <View className=''>
+            <View className='w-1/3'>
               <Text className='text-gray-600'>
                 Presentation
               </Text>
               <Slider
-                style={{ width: 200, height: 40 }}
+                // style={{ width: 200, height: 40 }}
                 minimumValue={0}
                 maximumValue={5}
                 step={1}
@@ -162,12 +183,12 @@ export const Create = () => {
                 maximumTrackTintColor="#000000"
               />
             </View>
-            <View className=''>
+            <View className='w-1/3'>
               <Text className='text-gray-600'>
                 Experience
               </Text>
               <Slider
-                style={{ width: 200, height: 40 }}
+                // style={{ width: 200, height: 40 }}
                 minimumValue={0}
                 maximumValue={5}
                 step={1}
