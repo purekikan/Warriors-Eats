@@ -16,7 +16,7 @@ const reviewCard = ({ title, meanScore, reviewTitle, reviewScores, reviewDescrip
             title={title} 
             subtitle="Card Subtitle" 
             left={LeftContent} 
-            right={() => RightContent(meanScore)}
+            right={() => RightContent({ score: 5 })}
         />
         <Card.Cover className='mx-4 mb-4' source={{ uri: 'https://picsum.photos/700' }} resizeMode='cover' />
         <Card.Content>
