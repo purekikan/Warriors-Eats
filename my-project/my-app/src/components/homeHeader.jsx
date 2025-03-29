@@ -7,7 +7,6 @@ const HomeHeader = () => {
     return (
       <>
       <StatusBar backgroundColor="#F8D49B" barStyle="dark-content" />
-        {/* header */}
         <View className="flex px-4 py-6 bg-[#F8D49B]">
           <View className="flex justify-between items-start flex-row mb-6">
             <View>
@@ -17,7 +16,15 @@ const HomeHeader = () => {
             </View>
           </View>
   
-          <SearchFilter />
+          <Searchbar
+                      placeholder="Search"
+                      onChangeText={setSearchQuery}
+                      value={searchQuery}
+                      icon="magnify"
+                      onFocus={() => setIsDropdownVisible(true)}
+                      onBlur={() => setIsDropdownVisible(false)}
+                      style={{ marginBottom: 8 }}
+                  />
         </View>
       </>
     )
