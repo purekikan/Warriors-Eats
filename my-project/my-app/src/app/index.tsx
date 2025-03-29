@@ -31,7 +31,6 @@ export default function Main() {
     ]);
 
     const renderScene = BottomNavigation.SceneMap({
-        app: AppRoute,
         home: HomeRoute,
         create: CreateRoute,
         restaurants: RestaurantsRoute,
