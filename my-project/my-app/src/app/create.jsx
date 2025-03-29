@@ -85,13 +85,14 @@ export const Create = () => {
     // go to Home page
   }
   
-  return (
+   return (
     <SafeAreaProvider>
       <SafeAreaView className='flex-1 bg-[#FFF1C2]'>
         <CreateHeader />
         <ScrollView className='px-5'>
           <Text>create</Text>
           <TextInput
+            className='mb-4' 
             label="Food Name"
             mode="outlined"
             value={foodName}
@@ -102,6 +103,7 @@ export const Create = () => {
             Locations
           </Text>
           <Dropdown
+            className='mb-4'
             data={locationData}
             search
             maxHeight={300}
@@ -131,22 +133,24 @@ export const Create = () => {
             }}
           />
           {/* Upload Photo Button + File Picker */}
-          <View className='flex items-center justify-center mt-2'>
+          <View className='flex items-center justify-center mt-4 mb-4'>
             <Text className='text-gray-600 mt-1 mb-2'>
                 Upload / Take a Photo of Your Delicious Dish!
             </Text>
-            <Button className='my-2' icon="camera" mode="contained" 
-              onPress={() => openImagePicker({ src : "camera" })}>
+            <Button className='my-2 mb-6' icon="camera" mode="contained" 
+              onPress={() => openImagePicker({ src : "camera" })}
+              style={{ marginBottom: 4 }}>
               Take Photo
             </Button>
-            <Button className='my-2' icon="file-image-plus" mode="contained" 
-              onPress={() => openImagePicker({ src : "file" })}>
+            <Button className='my-2 mt-6' icon="file-image-plus" mode="contained" 
+              onPress={() => openImagePicker({ src : "file" })}
+              style={{ marginTop: 4 }} >
               Upload Photo
             </Button>
             {image ? 
-              <Image source={{ uri: image }} style={{ width: 200, height: 200 }} />
+              <Image source={{ uri: image }} style={{ width: 200, height: 200 }} className='my-2'/>
                   : 
-              <Text className='text-gray-600 mt-1 mb-2'>
+              <Text className='text-gray-600 mt-4 mb-4'>
                 No image selected
               </Text>
             }
@@ -209,20 +213,21 @@ export const Create = () => {
           </View>
 
           <TextInput
+            className='mt-4 mb-4'
             label="Review Title"
             mode="outlined"
             value={reviewTitle}
             onChangeText={reviewTitle => setReviewTitle(reviewTitle)}
           />
           <TextInput
+            className='mb-4 min-h-[150]'
             label="Description"
             mode="outlined"
             value={reviewDescription}
             onChangeText={reviewDescription => setReviewDescription(reviewDescription)}
             multiline={true}
-            className='min-h-[150]' // make it vertically bigger
           />
-          <View className='my-5'>
+          <View className='my-5 mt-4'>
             <Button
               className=''
               icon="send"

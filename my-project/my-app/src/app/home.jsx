@@ -33,7 +33,7 @@ const home = () => {
       <SafeAreaView className='flex-1 bg-[#FFF1C2]'>
         <HomeHeader />
         {/* all posts (cards) */}
-        <FlatList className='pt-4 px-5'
+        <FlatList className='pt-6 px-5'
           data={DATA}
           renderItem={({item}) => <ReviewCard title={item.title} />}
           keyExtractor={item => item.id} 
