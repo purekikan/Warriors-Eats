@@ -24,7 +24,7 @@ import { BottomNavigation, Text } from 'react-native-paper';
 export default function Main() {
     const [index, setIndex] = React.useState(0);
     const [routes] = React.useState([
-        { key: 'app', title: 'Test', focusedIcon: 'heart', unfocusedIcon: 'heart-outline'},
+        // { key: 'app', title: 'Test', focusedIcon: 'heart', unfocusedIcon: 'heart-outline'},
         { key: 'home', title: 'Home', focusedIcon: 'home', unfocusedIcon: 'home-outline' },
         { key: 'create', title: 'Create', focusedIcon: 'plus-circle', unfocusedIcon: 'plus-circle-outline' },
         { key: 'restaurants', title: 'Restaurants', focusedIcon: 'food', unfocusedIcon: 'food-outline' },
@@ -43,7 +43,7 @@ export default function Main() {
                   navigationState={{ index, routes }}
                   onIndexChange={setIndex}
                   renderScene={renderScene}
-                  />
+                />
           </PaperProvider>
         </>
     );
