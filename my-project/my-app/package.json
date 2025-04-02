@@ -5,6 +5,7 @@
   "main": "expo-router/entry",
   "dependencies": {
     "@expo/metro-config": "*",
+    "@expo/vector-icons": "*",
     "@nx/devkit": "*",
     "@nx/eslint": "*",
     "@nx/jest": "*",
@@ -17,6 +18,8 @@
     "axios": "*",
     "enhanced-resolve": "*",
     "expo": "*",
+    "expo-file-system": "~18.0.12",
+    "expo-image-picker": "~16.0.6",
     "expo-router": "^4.0.19",
     "metro-config": "*",
     "metro-resolver": "*",
@@ -32,9 +35,7 @@
     "react-native-svg-transformer": "*",
     "tailwindcss": "^3.4.17",
     "tsconfig-paths": "*",
-    "tslib": "*",
-    "expo-image-picker": "~16.0.6",
-    "@expo/vector-icons": "*"
+    "tslib": "*"
   },
   "scripts": {
     "android": "expo run:android",

@@ -6,6 +6,7 @@ import { Dropdown } from 'react-native-element-dropdown';
 import Slider from '@react-native-community/slider';
 import * as ImagePicker from 'expo-image-picker'
 import { ReviewCard } from '../components';
+import axios from 'axios';
 const CreateHeader = () => {
   return (
     <>
@@ -76,6 +77,19 @@ export const Create = () => {
   const handleSubmit = () => {
     console.log('Review Posted!');
     // save the review to the database
+    axios.post('http://localhost:3000/eateries',{
+      eatery_id = ,
+      food_name,
+      score,
+      review_text,
+      image_data
+    }).then(response => {
+      console.log(response.data);
+      setDATA(response.data);
+    })
+    .catch(error => {
+      console.error(error);
+    });
     setFoodName("");  
     setReviewTitle("");
     setReviewDescription("");

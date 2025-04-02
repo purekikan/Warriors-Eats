@@ -3,30 +3,44 @@ import * as React from 'react';
 import { Searchbar, PaperProvider } from 'react-native-paper';
 import { SafeAreaView, SafeAreaProvider } from 'react-native-safe-area-context';
 import { ReviewCard, HomeHeader } from '../components';
-
+import axios from 'axios';
 const home = () => {
-  const DATA = [
+  const [DATA, setDATA] = React.useState([
     {
-      id: '1',
-      title: 'First Item',
+      id:1,
+      address: "Foo",
+      description: "A decent place to eat",
+      name:"United College"
     },
     {
-      id: '2',
-      title: 'Second Item',
+      id:2,
+      address:"Bar",
+      description:"A so so place to eat",
+      name:"St. Jeromes"
     },
     {
       id: '3',
-      title: 'Third Item',
+      name: 'Third Item',
     },
     {
       id: '4',
-      title: 'Fourth Item',
+      name: 'Fourth Item',
     },
     {
       id: '5',
-      title: 'Fifth Item', 
+      name: 'Fifth Item', 
     }
-  ];
+  ]);
+  React.useEffect(() => {
+          axios.get('http://localhost:3000/eateries')
+            .then(response => {
+              console.log(response.data);
+              setDATA(response.data);
+            })
+            .catch(error => {
+              console.error(error);
+            });
+        }, []);
   
   return (
     <SafeAreaProvider>
@@ -35,7 +49,7 @@ const home = () => {
         {/* all posts (cards) */}
         <FlatList className='pt-6 px-5'
           data={DATA}
-          renderItem={({item}) => <ReviewCard title={item.title} />}
+          renderItem={({item}) => <ReviewCard title={item.name} />}
           keyExtractor={item => item.id} 
           ItemSeparatorComponent={() => <View style={{ height: 22 }} />} 
           contentContainerStyle={{ paddingBottom: 22 }}
