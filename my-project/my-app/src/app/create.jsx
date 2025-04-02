@@ -164,8 +164,8 @@ export const Create = () => {
            <Text className='text-gray-600 mt-1 mb-2'>
               Ratings
             </Text>
-          <View className='flex flex-row m-w-full items-center justify-between'>
-            <View className='w-1/3'>
+          <View className='flex flex-row m-w-full my-4 items-center justify-between'>
+            <View className='w-1/4 mx-4'>
               <Text className='text-gray-600'>
                 Taste : {reviewScore.taste}
               </Text>
@@ -180,7 +180,7 @@ export const Create = () => {
                 maximumTrackTintColor="#000000"
               />
             </View>
-            <View className='w-1/3'>
+            <View className='w-1/4 mx-4'>
               <Text className='text-gray-600'>
                 Presentation : {reviewScore.presentation}
               </Text>
@@ -195,7 +195,7 @@ export const Create = () => {
                 maximumTrackTintColor="#000000"
               />
             </View>
-            <View className='w-1/3'>
+            <View className='w-1/4 mx-4'>
               <Text className='text-gray-600'>
                 Experience : {reviewScore.experience}
               </Text>
