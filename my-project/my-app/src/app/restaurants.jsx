@@ -1,11 +1,12 @@
 import { View, ScrollView, Text, TouchableOpacity, StyleSheet, StatusBar } from 'react-native';
+import axios from 'axios';
 import { Ionicons } from '@expo/vector-icons';
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 
 const RestaurantList = () => {
   const [expandedId, setExpandedId] = useState(null);
 
-  const restaurants = [
+  const [restaurants, setRestaurants] = useState([
     {
       id: 1,
       name: "Watson's Eatery",
@@ -31,7 +32,19 @@ const RestaurantList = () => {
       name: "",
       description: ""
     },
-  ];
+  ]);
+
+  useEffect(() => {
+    axios.get('http://localhost:3000/eateries')
+      .then(response => {
+        console.log(response.data);
+        setRestaurants(response.data);
+      })
+      .catch(error => {
+        console.error(error);
+      });
+  }, []);
+
 
   const toggleItem = (id) => {
     setExpandedId(expandedId === id ? null : id);
