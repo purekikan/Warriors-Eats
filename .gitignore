@@ -2,4 +2,8 @@
 .nx/installation
 .nx/cache
 .nx/workspace-data
+<<<<<<< HEAD
 my-project/apps/backend/.env
+=======
+my-project/apps/backend/.env
+>>>>>>> fbecbef (ignore.env)
