@@ -3,7 +3,7 @@ require('dotenv').config();
 
 const Pool = require('pg').Pool;
 
-// const { PGHOST, PGDATABASE, PGUSER, PGPASSWORD } = process.env;
+const { PGHOST, PGDATABASE, PGUSER, PGPASSWORD, LOCALPW } = process.env;
 // const pool = new Pool({
 //   host: PGHOST,
 //   database: PGDATABASE,
@@ -21,7 +21,7 @@ const pool = new Pool({
   user: 'postgres',
   host: 'localhost',
   database: 'warriors_eats',
-  password: '************',
+  password: LOCALPW,
   port: 5432,
 });
 
