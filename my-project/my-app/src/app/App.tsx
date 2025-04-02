@@ -1,3 +1,5 @@
+/* this is the default app template from nx monorepo */
+
 /* eslint-disable jsx-a11y/accessible-emoji */
 import axios from 'axios';
 import React, { useRef, useState, useEffect } from 'react';
@@ -11,25 +13,27 @@ import {
   TouchableOpacity,
   Linking,
 } from 'react-native';
+import { Link } from 'expo-router';
 import Svg, { G, Path } from 'react-native-svg';
+import "../../global.css"
 
-export const App = () => {
+export const app = () => {
   const [whatsNextYCoord, setWhatsNextYCoord] = useState<number>(0);
   const scrollViewRef = useRef<null | ScrollView>(null);
-  useEffect(() => {
-    axios.get('http://localhost:3000/')
-      .then(response => {
-        console.log(response.data);
-      })
-      .catch(error => {
-        console.error(error);
-      });
-  }, []);
+  // useEffect(() => {
+  //   axios.get('http://localhost:3300/')
+  //     .then(response => {
+  //       console.log(response.data);
+  //     })
+  //     .catch(error => {
+  //       console.error(error);
+  //     });
+  // }, []); // does not work on mobile
 
 
   return (
     <>
-      <StatusBar barStyle="dark-content" />
+      <StatusBar barStyle="light-content" />
       <SafeAreaView
         style={{
           flex: 1,
@@ -51,8 +55,14 @@ export const App = () => {
             >
               Welcome to MyApp 👋
             </Text>
-            <Text>Check the console for our backend response! Go there by pressing F12</Text>
+            <Text className="">Check the console for our backend response! Go there by pressing F12</Text>
+            <Link href="/App" className="flex-1 justify-center items-center text-center bg-blue-500">
+              <Text className='text-3xl mt-4 text-white'>Go to App</Text>
+            </Link>
           </View>
+          <Link href="/" className="flex-1 justify-center items-center text-center bg-blue-500">
+              <Text className='text-lg mt-4 text-white'>Back to Index</Text>
+          </Link>
           <View style={styles.section}>
             <View style={styles.hero}>
               <View style={styles.heroTitle}>
@@ -750,4 +760,4 @@ const styles = StyleSheet.create({
   },
 });
 
-export default App;
+export default app;
