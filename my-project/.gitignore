@@ -58,4 +58,4 @@ npm-debug.*
 web-build/
 cache/
 
-apps/**/.env
+apps/backend/.env
