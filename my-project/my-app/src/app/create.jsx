@@ -5,8 +5,10 @@ import { SafeAreaView, SafeAreaProvider } from 'react-native-safe-area-context';
 import { Dropdown } from 'react-native-element-dropdown';
 import Slider from '@react-native-community/slider';
 import * as ImagePicker from 'expo-image-picker'
+import * as FileSystem from 'expo-file-system';
 import { ReviewCard } from '../components';
 import axios from 'axios';
+
 const CreateHeader = () => {
   return (
     <>
@@ -26,8 +28,8 @@ const CreateHeader = () => {
 }
 
 const locationData = [
-  { label: 'Item 1', value: '1' },
-  { label: 'Item 2', value: '2' },
+  { label: 'United College', value: '1' },
+  { label: 'St. Jeromes', value: '2' },
   { label: 'Item 3', value: '3' },
   { label: 'Item 4', value: '4' },
   { label: 'Item 5', value: '5' },
@@ -35,6 +37,22 @@ const locationData = [
   { label: 'Item 7', value: '7' },
   { label: 'Item 8', value: '8' },
 ];
+
+const convertImageToBase64 = async (imageUri) => {
+  try {
+    const response = await fetch(imageUri);
+    const blob = await response.blob();
+    const reader = new FileReader();
+    return new Promise((resolve, reject) => {
+      reader.onloadend = () => resolve(reader.result.split(',')[1]);
+      reader.onerror = reject;
+      reader.readAsDataURL(blob);
+    });
+  } catch (error) {
+    console.error('Error converting image to base64 on web:', error);
+    return null;
+  }
+};
 
 
 export const Create = () => {
@@ -58,7 +76,7 @@ export const Create = () => {
       mediaTypes: 'images',
       // allowsEditing: true,
       aspect: [4, 3],
-      // quality: 1,
+      quality: 0.5,
     }
     // console.log(src);
     let result; 
@@ -74,21 +92,28 @@ export const Create = () => {
     }
   }
 
-  const handleSubmit = () => {
-    console.log('Review Posted!');
+  const handleSubmit = async () => {
     // save the review to the database
-    axios.post('http://localhost:3000/eateries',{
-      eatery_id = ,
-      food_name,
-      score,
-      review_text,
-      image_data
+    const base64Image = await convertImageToBase64(image);
+    const scoreValues = Object.values(reviewScore);
+    const averageReviewScore = scoreValues.reduce((accumulator, currentValue) => accumulator + currentValue, 0) / scoreValues.length;
+    const finalReviewScore = Math.round(averageReviewScore * 10) / 10;
+    console.log(scoreValues, finalReviewScore);
+    console.log(base64Image);
+    axios.post('http://localhost:3000/reviews',{
+      'eatery_name': location,
+      'food_name': foodName,
+      'score': finalReviewScore,
+      'review_text': reviewTitle,
+      'review_decription': reviewDescription,
+      'image_data': base64Image,
     }).then(response => {
       console.log(response.data);
-      setDATA(response.data);
+      console.log('Review Posted!');
     })
     .catch(error => {
       console.error(error);
+      console.log('Review NOT Posted!');
     });
     setFoodName("");  
     setReviewTitle("");
@@ -104,7 +129,6 @@ export const Create = () => {
       <SafeAreaView className='flex-1 bg-[#FFF1C2]'>
         <CreateHeader />
         <ScrollView className='px-5'>
-          <Text>create</Text>
           <TextInput
             className='mb-4' 
             label="Food Name"

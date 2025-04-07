@@ -15,10 +15,11 @@ CREATE TABLE eateries (
 
 CREATE TABLE reviews (
   ID SERIAL PRIMARY KEY,
-  eatery_id INT REFERENCES eateries(ID),
+  eatery_name VARCHAR(30),
   food_name VARCHAR(30),
   score INT,
   review_text VARCHAR(1000),
+  review_decription VARCHAR(1000),
   image_data BYTEA
 );
 
