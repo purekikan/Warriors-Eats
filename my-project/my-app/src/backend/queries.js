@@ -1,3 +1,5 @@
+const { parseJsonText } = require('typescript');
+
 require('dotenv').config();
 
 
@@ -104,11 +106,11 @@ const createEatery = (request, response) => {
 };
 
 const createReview = (request, response) => {
-  const { eatery_id, food_name, score, review_text, image_data } = request.body;
+  const { eatery_name, food_name, score, review_text, review_decription, image_data } = request.body;
 
   pool.query(
-    'INSERT INTO reviews (eatery_id, food_name, score, review_text, image_data) VALUES ($1, $2, $3, $4, $5) RETURNING *',
-    [eatery_id, food_name, score, review_text, image_data],
+    'INSERT INTO reviews (eatery_name, food_name, score, review_text, review_decription, image_data) VALUES ($1, $2, $3, $4, $5, $6) RETURNING *',
+    [eatery_name, food_name, score, review_text, review_decription, image_data],
     (error, results) => {
       if (error) {
         throw error;
@@ -136,11 +138,11 @@ const updateEatery = (request, response) => {
 
 const updateReview = (request, response) => {
   const id = parseInt(request.params.id);
-  const { eatery_id, food_name, score, review_text, image_data } = request.body;
+  const { eatery_name, food_name, score, review_text, review_decription, image_data } = request.body;
 
   pool.query(
-    'UPDATE reviews SET food_name = $1, score = $2, review_text = $3, image_data = $4 WHERE id = $5',
-    [food_name, score, review_text, image_data, id],
+    'UPDATE reviews SET food_name = $1, score = $2, review_text = $3, review_decription = $4, image_data = $5 WHERE id = $6',
+    [food_name, score, review_text, review_decription, image_data, id],
     (error, results) => {
       if (error) {
         throw error;
@@ -153,7 +155,7 @@ const updateReview = (request, response) => {
 const deleteEatery = (request, response) => {
   const id = parseInt(request.params.id);
 
-  pool.query('DELETE FROM eateries WHERE id = $1', [id], (error, results) => {
+  pool.query('DELETE FROM eateries WHERE id = $1;', [id], (error, results) => {
     if (error) {
       throw error;
     }
